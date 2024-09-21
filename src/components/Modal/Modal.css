@@ -1,0 +1,35 @@
+.mainContainer {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgb(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContainer {
+    width: 30%;
+    min-height: 60%;
+    background-color: #FFEEA0;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.closeModal {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: end;
+}
+
+.closeIcon {
+    font-size: 3em;
+    color: #44211D;
+    margin-right: 20px;
+    margin-top: 15px;
+    cursor: pointer;
+}

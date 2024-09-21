@@ -1,0 +1,68 @@
+.searchContainer {
+    padding: 10px 20px;
+    padding-top: 0;
+    height: 100%;
+}
+
+.searchBar {
+    width: 100%;
+    font-size: 1em;
+    text-align: start;
+    padding: 5px 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    cursor: text;
+    background-color: #ffdd46;
+    color: #44211D;
+    border: 2px solid #44211D;
+    border-radius: 10px;
+}
+
+.searchBar::placeholder {
+    color: #886e6c;
+}
+
+.searchBarContainer p {
+    font-size: 0.7em;
+}
+
+.resultsContainer {
+    max-height: 360px;
+    overflow-y: auto;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.resultsContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.resultCityItem {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-bottom: 2px solid #725D42;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.resultCityItem:hover {
+    background-color: #FFCC00;
+}
+
+.resultCityItem p {
+    text-align: start;
+    cursor: pointer;
+}
+
+.resultCityItem .resultCityName {
+    font-size: 0.9em;
+}
+
+.resultCityItem .resultCityCoordenates {
+    font-size: 0.7em;
+    color: #e13124;
+}

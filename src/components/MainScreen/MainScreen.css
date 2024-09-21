@@ -1,0 +1,168 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainContent {
+  width: 50vw;
+  height: 70vh;
+  flex-direction: column;
+}
+
+.backgroundContainer {
+  width: 100%;
+  height: 55%;
+  background-image: url("../../assets/Property\ 1=Empty.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dataContainer {
+  flex-direction: column;
+}
+
+.forecastContainer {
+  align-items: start;
+}
+
+.city, .dailyForecastButton {
+  width: 50%;
+}
+
+.city {
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding-right: 10px;
+}
+
+.dailyForecastButton {
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+
+.pointRightImage {
+  width: 12%;
+  height: 12%;
+  visibility: hidden;
+}
+
+.dailyForecastButton:hover .forecastButton {
+  cursor: pointer;
+}
+
+.dailyForecastButton:hover .pointRightImage {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.currentWeather, .currentTime {
+    width: 50%;
+    margin-inline: 20px;
+}
+
+.videoContainer {
+  height: 45%;
+  background-color: pink;
+  margin-top: 20px;
+}
+
+.border {
+    width: 3px;
+    height: 15vh;
+    margin-inline: 10px;
+    align-self: center;
+    background-color: #8a7b66;
+}
+
+/* Text */
+
+.date,
+.feelsLike,
+.weather,
+.temperature,
+.clock {
+  color: #8a7b66;
+}
+
+.date,
+.feelsLike,
+.weather {
+    text-align: start;
+    font-weight: 500;
+    font-size: 0.8em;
+}
+
+.city, 
+.weather,
+.date {
+  display: flex;
+  align-items: center;
+}
+
+.date {
+  align-items: start;
+}
+
+.temperature,
+.clock {
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.city span {
+  color: #e886c3;
+  font-weight: 600;
+  border-bottom: 2px solid #e886c3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 70%;
+}
+
+.city:hover span {
+  cursor: pointer;
+  border-bottom: 2px solid #e45aaf;
+  color: #e45aaf;
+}
+
+.forecastButton {
+  background-color: transparent;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #8a7b66;
+  border: none;
+  border-bottom: 2px dotted #8a7b66;
+  align-self: flex-end;
+}
+
+/* Icons */
+
+.cityIcon {
+  margin-right: 3px;
+  color: #e886c3;
+}
+
+.edit, .sync {
+  margin-left: 10px;
+}
+
+.city:hover .map, .sync:hover {
+  cursor: pointer;
+  color: #e45aaf;
+}
+
+.weatherIcon, .dateIcon {
+  margin-right: 6px;
+}
+
+.weatherIcon {
+  font-size: 1.5em;
+}
+
+.dateIcon {
+  margin-top: 5px;
+}
