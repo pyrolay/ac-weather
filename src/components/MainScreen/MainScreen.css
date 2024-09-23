@@ -10,17 +10,14 @@
   flex-direction: column;
 }
 
-.backgroundContainer {
-  width: 100%;
-  height: 55%;
-  background-image: url("../../assets/Property\ 1=Empty.png");
+.backgroundImage {
+  width: 80%;
+  height: 50%;
+  flex-direction: column;
+  background-image: url("../../assets/backgroundcolor.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.dataContainer {
-  flex-direction: column;
 }
 
 .forecastContainer {

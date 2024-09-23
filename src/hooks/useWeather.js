@@ -17,11 +17,14 @@ export const useWeather = () => {
             lat: city.lat,
             lon: city.lon,
             appid: apiKey,
-            units: "metric"
+            units: "metric",
           },
         }
       );
-      setWeatherData(response.data);
+      setWeatherData({
+        temp: response.data.main,
+        weather: response.data.weather[0],
+      });
     } catch (error) {
       console.error("error fetching city data", error);
     } finally {
