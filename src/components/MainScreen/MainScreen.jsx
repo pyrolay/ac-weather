@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./MainScreen.css";
 
@@ -9,9 +9,25 @@ import { FaSyncAlt } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 
 import pointRightImage from "../../assets/point right.svg";
+import { useSearchCity } from "../../hooks/useSearchCity";
 
 const MainScreen = () => {
-  const [city, setCity] = useState("Buenos Aires");
+  const [cityName, setCityName] = useState();
+  const { citySearchData, isLoading, getCitySearchData } = useSearchCity();
+
+  const [cityData, setCityData] = useState({
+    name: "Buenos Aires",
+    lat: -34.6075682,
+    lon: -58.4370894,
+  });
+
+  useEffect(() => {
+    getCitySearchData(cityName);
+  }, [cityName, getCitySearchData]);
+
+  useEffect(() => {
+    console.log(cityData);
+  }, [citySearchData, cityData]);
 
   const [modal, setModal] = useState({ visible: false, isSearch: false });
 
@@ -26,7 +42,7 @@ const MainScreen = () => {
                 <span
                   onClick={() => setModal({ visible: true, isSearch: true })}
                 >
-                  {city}
+                  {cityData.name}
                 </span>
                 <FaSyncAlt className="cityIcon sync" />
               </div>
@@ -82,24 +98,17 @@ const MainScreen = () => {
         </div>
       </div>
 
-      {modal.visible && <Modal setModal={setModal} isSearch={modal.isSearch} />}
+      {modal.visible && (
+        <Modal
+          setModal={setModal}
+          isSearch={modal.isSearch}
+          setCityName={setCityName}
+          citySearchData={citySearchData}
+          setCityData={setCityData}
+        />
+      )}
     </div>
   );
 };
 
 export { MainScreen };
-
-/* 
-  const { weatherData, getWeatherData } = useWeather();
-
-  useEffect(() => {
-    const city = { lat: -34.6075682, lon: -58.4370894 };
-    getWeatherData(city);
-  }, [getWeatherData]);
-
-  useEffect(() => {
-    console.log(weatherData);
-  }, [weatherData]); 
-  
-  {weatherData && getDate(weatherData.dt, weatherData.timezone)}
-  */

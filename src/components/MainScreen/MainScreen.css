@@ -33,7 +33,6 @@
 
 .city {
   justify-content: flex-end;
-  box-sizing: border-box;
   padding-right: 10px;
 }
 
@@ -119,8 +118,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: inline-block;
-  width: 70%;
+  display: block;
+  width: 200px;
+  text-align: center;
 }
 
 .city:hover span {
