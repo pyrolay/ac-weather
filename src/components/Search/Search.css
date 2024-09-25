@@ -38,8 +38,8 @@
 }
 
 .resultCityItem {
+    width: 100%;
     margin-top: 20px;
-    padding: 10px 20px;
     border-bottom: 2px solid #725D42;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -47,6 +47,7 @@
     box-sizing: border-box;
     cursor: pointer;
     transition: 0.2s;
+    padding: 10px 20px;
 }
 
 .resultCityItem:hover {
@@ -56,13 +57,14 @@
 .resultCityItem p {
     text-align: start;
     cursor: pointer;
+    width: 80%;
 }
 
 .resultCityItem .resultCityName {
     font-size: 0.9em;
 }
 
-.resultCityItem .resultCityCoordenates {
+.resultCityCoordinates {
     font-size: 0.7em;
     color: #e13124;
 }

@@ -17,11 +17,11 @@ const Modal = ({
   return (
     <div className="mainContainer">
       <div className="modalContainer">
-        <button
-          className="closeModal"
-          onClick={() => setModal({ visible: false, isSearch: false })}
-        >
-          <IoMdClose className="closeIcon" />
+        <button className="closeModal">
+          <IoMdClose
+            className="closeIcon"
+            onClick={() => setModal({ visible: false, isSearch: false })}
+          />
         </button>
         {isSearch ? (
           <Search
