@@ -8,6 +8,7 @@ import { useWeather } from "../../hooks/useWeather";
 
 import { FaMapMarkerAlt, FaSyncAlt, FaCalendarAlt } from "react-icons/fa";
 import pointRightImage from "../../assets/point right.svg";
+import { useTime } from "../../hooks/useTime";
 
 const MainScreen = () => {
   const [modal, setModal] = useState({ visible: false, isSearch: false });
@@ -23,13 +24,20 @@ const MainScreen = () => {
   const { temp, feels_like } = weatherData?.temp || {};
   const weather = weatherData?.weather?.main;
 
+  const { timeData, getTimeData } = useTime();
+
   useEffect(() => {
     cityName && getCitySearchData(cityName);
   }, [cityName, getCitySearchData]);
 
   useEffect(() => {
     getWeatherData(cityData);
-  }, [cityData, getWeatherData]);
+    getTimeData(cityData);
+  }, [cityData, getWeatherData, getTimeData]);
+
+  useEffect(() => {
+    console.log(timeData);
+  }, [timeData]);
 
   const openSearchModal = () => setModal({ visible: true, isSearch: true });
   const openForecastModal = () => setModal({ visible: true, isSearch: false });
