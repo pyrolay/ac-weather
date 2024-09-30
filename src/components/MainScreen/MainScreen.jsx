@@ -10,6 +10,7 @@ import { useClock } from "../../hooks/useClock";
 
 import { FaMapMarkerAlt, FaSyncAlt, FaCalendarAlt } from "react-icons/fa";
 import pointRightImage from "../../assets/point right.svg";
+import { useTime } from "../../hooks/useTime";
 
 const MainScreen = () => {
   const [modal, setModal] = useState({ visible: false, isSearch: false });
