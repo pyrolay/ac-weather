@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-
 import "./MainScreen.css";
 import { Modal } from "../Modal/Modal";
 
 import { useSearchCity } from "../../hooks/useSearchCity";
 import { useWeather } from "../../hooks/useWeather";
+import { useTime } from "../../hooks/useTime";
+import { getDate } from "../../utils/getDate";
+import { useClock } from "../../hooks/useClock";
 
 import { FaMapMarkerAlt, FaSyncAlt, FaCalendarAlt } from "react-icons/fa";
 import pointRightImage from "../../assets/point right.svg";
@@ -23,16 +25,24 @@ const MainScreen = () => {
   const { temp, feels_like } = weatherData?.temp || {};
   const weather = weatherData?.weather?.main;
 
+  const { timeData, getTimeData } = useTime();
+
   useEffect(() => {
     cityName && getCitySearchData(cityName);
   }, [cityName, getCitySearchData]);
 
   useEffect(() => {
     getWeatherData(cityData);
-  }, [cityData, getWeatherData]);
+    getTimeData(cityData);
+  }, [cityData, getWeatherData, getTimeData]);
+
+  useEffect(() => {
+    console.log(timeData);
+  }, [timeData]);
 
   const openSearchModal = () => setModal({ visible: true, isSearch: true });
   const openForecastModal = () => setModal({ visible: true, isSearch: false });
+  const handleSyncButton = () => getWeatherData(cityData);
 
   return (
     <div className="mainContainer">
@@ -42,9 +52,14 @@ const MainScreen = () => {
             city={cityData.name}
             onSearchClick={openSearchModal}
             onForecastClick={openForecastModal}
-            onSyncClick={() => getWeatherData(cityData)}
+            onSyncClick={handleSyncButton}
           />
-          <WeatherInfo temp={temp} feelsLike={feels_like} weather={weather} />
+          <WeatherInfo
+            temp={temp}
+            feelsLike={feels_like}
+            weather={weather}
+            timeData={timeData}
+          />
         </div>
         <VideoEmbed />
       </div>
@@ -81,7 +96,7 @@ const CityInfo = ({ city, onSearchClick, onSyncClick, onForecastClick }) => (
   </div>
 );
 
-const WeatherInfo = ({ temp, feelsLike, weather }) => (
+const WeatherInfo = ({ temp, feelsLike, weather, timeData }) => (
   <div className="forecastContainer flex">
     <div className="currentWeather">
       <p className="temperature">{Math.round(temp)}°c</p>
@@ -91,19 +106,24 @@ const WeatherInfo = ({ temp, feelsLike, weather }) => (
       </p>
     </div>
     <div className="border"></div>
-    <CurrentTime />
+    <CurrentTime timeData={timeData} />
   </div>
 );
 
-const CurrentTime = () => (
-  <div className="currentTime">
-    <p className="clock">13:00</p>
-    <p className="date">
-      <FaCalendarAlt className="dateIcon" />
-      <span>Wed 3, Sep</span>
-    </p>
-  </div>
-);
+const CurrentTime = ({ timeData }) => {
+  const { formattedTime } = useClock(timeData);
+  const formattedDate = timeData ? getDate(timeData) : "";
+
+  return (
+    <div className="currentTime">
+      <p className="clock">{formattedTime}</p>
+      <p className="date">
+        <FaCalendarAlt className="dateIcon" />
+        <span>{formattedDate}</span>
+      </p>
+    </div>
+  );
+};
 
 const VideoEmbed = () => (
   <div className="videoContainer flex">
