@@ -1,37 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./DailyForecast.css";
+import { useClock } from "../../hooks/useClock";
+import { useDailyWeather } from "../../hooks/useDailyWeather";
 
-const DailyForecast = () => {
+const DailyForecast = ({ weatherData, cityData, timeData }) => {
+  const { formattedTime } = useClock(timeData);
+
+  const { dailyWeatherData, getDailyWeather } = useDailyWeather();
+
+  useEffect(() => {
+    getDailyWeather(cityData)
+  }, [getDailyWeather, cityData])
+
+  useEffect(() => {
+    console.log(dailyWeatherData);
+  }, [dailyWeatherData]);
+
   return (
     <div className="dailyForecastContainer">
       <div className="todayForecast">
         <p className="forecastTitle">Today Forecast</p>
         <div className="todayForecastInfo">
           <div className="todayForecastCurrent">
-            <p className="todayForecastTemp">-1°</p>
+            <p className="todayForecastTemp">
+              {Math.round(weatherData.temp.temp)}°c
+            </p>
             <div className="todayForecastCity">
-              <p className="todayForecastCityName">Buenos Aires</p>
-              <p>21:15</p>
+              <p className="todayForecastCityName">{cityData.name}</p>
+              <p>{formattedTime}</p>
             </div>
           </div>
           <div className="todayForecastMain">
             <div className="todayWeather">
               <img src="" alt="" />
-              <p>Rainy</p>
+              <p>{weatherData.weather.main}</p>
             </div>
             <div className="todayHumidity">
               <img src="" alt="" />
-              <p>60</p>
+              <p>{weatherData.temp.humidity}</p>
             </div>
             <div className="todayWind">
               <img src="" alt="" />
-              <p>5.14 m/s</p>
+              <p>{weatherData.wind} m/s</p>
             </div>
           </div>
           <div className="todayFeelLikeMinMax">
-            <p>Feel like: -4°C</p>
-            <p>-1° to 3°</p>
+            <p>Feel like: {Math.round(weatherData.temp.feels_like)}°c</p>
+            <p>
+              {Math.round(weatherData.temp.temp_min)}° to{" "}
+              {Math.round(weatherData.temp.temp_max)}°
+            </p>
           </div>
         </div>
       </div>

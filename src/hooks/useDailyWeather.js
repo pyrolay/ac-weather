@@ -3,30 +3,25 @@ import { useCallback, useState } from "react";
 
 const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 
-export const useWeather = () => {
-  const [weatherData, setWeatherData] = useState(null);
+export const useDailyWeather = () => {
+  const [dailyWeatherData, setDailyWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getWeatherData = useCallback(async (city) => {
+  const getDailyWeather = useCallback(async (city) => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather`,
+        `api.openweathermap.org/data/2.5/forecast`,
         {
           params: {
             lat: city.lat,
             lon: city.lon,
-            appid: apiKey,
             units: "metric",
+            appid: apiKey,
           },
         }
       );
-      console.log(response.data)
-      setWeatherData({
-        temp: response.data.main,
-        weather: response.data.weather[0],
-        wind: response.data.wind.speed
-      });
+      setDailyWeatherData(response.data);
     } catch (error) {
       console.error("error fetching city data", error);
     } finally {
@@ -34,5 +29,5 @@ export const useWeather = () => {
     }
   }, []);
 
-  return { weatherData, isLoading, getWeatherData };
+  return { dailyWeatherData, isLoading, getDailyWeather };
 };
