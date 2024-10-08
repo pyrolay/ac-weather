@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import "./DailyForecast.css";
 import { useClock } from "../../hooks/useClock";
 import { useDailyWeather } from "../../hooks/useDailyWeather";
+import { getDate } from "../../utils/getDate";
 
 const DailyForecast = ({ weatherData, cityData, timeData }) => {
   const { formattedTime } = useClock(timeData);
@@ -10,8 +11,10 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
   const { dailyWeatherData, getDailyWeather } = useDailyWeather();
 
   useEffect(() => {
-    getDailyWeather(cityData)
-  }, [getDailyWeather, cityData])
+    if (cityData) {
+      getDailyWeather(cityData);
+    }
+  }, [getDailyWeather, cityData]);
 
   useEffect(() => {
     console.log(dailyWeatherData);
@@ -57,14 +60,18 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
       <div className="dailyForecastResult">
         <p className="forecastTitle">5-day Forecast</p>
         <div className="dailyForecastResultContainer">
-          <div className="dailyForecast">
-            <p className="dailyForecastDay">Wed</p>
-            <div>
-              <img src="" alt="" />
-              <p>sunny</p>
+          {dailyWeatherData?.map((day) => (
+            <div className="dailyForecast" key={day.date}>
+              <p className="dailyForecastDay">{getDate(day)}</p>
+              <div>
+                <img src="" alt="" />
+                <p>{day.predominantWeather}</p>
+              </div>
+              <p className="dailyForecastMinMax">
+                {day.minTemp}° / {day.maxTemp}°
+              </p>
             </div>
-            <p className="dailyForecastMinMax">17° / 28°</p>
-          </div>
+          ))}
         </div>
       </div>
     </div>

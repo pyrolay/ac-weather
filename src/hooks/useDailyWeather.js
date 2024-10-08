@@ -7,10 +7,39 @@ export const useDailyWeather = () => {
   const [dailyWeatherData, setDailyWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Group weather data by day
+  const groupByDay = useCallback((list) => 
+    list.reduce((acc, item) => {
+      const date = item.dt_txt.split(" ")[0];
+      acc[date] = acc[date] || [];
+      acc[date].push(item);
+      return acc;
+    }, {})
+  , []);
+
+  // Calculate daily weather
+  const calculateDailyWeather = useCallback((groupedData) => 
+    Object.keys(groupedData).map((date) => {
+      const dayData = groupedData[date];
+      const temps = dayData.map(item => Math.round(item.main.temp));
+      const maxTemp = Math.max(...temps);
+      const minTemp = Math.min(...temps);
+
+      const weatherCount = dayData.reduce((acc, item) => {
+        acc[item.weather[0].main] = (acc[item.weather[0].main] || 0) + 1;
+        return acc;
+      }, {});
+      const predominantWeather = Object.keys(weatherCount).reduce((a, b) => weatherCount[a] > weatherCount[b] ? a : b);
+
+      return { date, dt: dayData[0].dt, maxTemp, minTemp, predominantWeather };
+    })
+  , []);
+
+  // Fetch daily weather
   const getDailyWeather = useCallback(async (city) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const response = await axios.get(
+      const { data } = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast`,
         {
           params: {
@@ -22,36 +51,22 @@ export const useDailyWeather = () => {
         }
       );
 
-      const groupedData = groupByDay(response.data.list);
-      const dailyTemperatures = calculateDailyTemperatures(groupedData);
+      const groupedData = groupByDay(data.list);
+      const dailyWeather = calculateDailyWeather(groupedData);
 
-      setDailyWeatherData(dailyTemperatures);
+      const todayString = new Date().toISOString().split("T")[0];
+
+      const fiveDayForecast = dailyWeather
+        .filter((data) => data.date >= todayString)
+        .slice(0, 5);
+
+      setDailyWeatherData(fiveDayForecast);
     } catch (error) {
-      console.error("error fetching city data", error);
+      console.error("Error fetching city data", error);
     } finally {
       setIsLoading(false);
     }
-  }, []);
-
-  const groupByDay = (list) => {
-    return list.reduce((acc, item) => {
-      const date = item.dt_txt.split(" ")[0];
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(item);
-      return acc;
-    }, {});
-  };
-
-  const calculateDailyTemperatures = (groupedData) => {
-    return Object.keys(groupedData).map((date) => {
-      const temps = groupedData[date].map((item) => Math.round(item.main.temp));
-      const maxTemp = Math.max(...temps);
-      const minTemp = Math.min(...temps);
-      return { date, maxTemp, minTemp };
-    });
-  };
+  }, [groupByDay, calculateDailyWeather]);
 
   return { dailyWeatherData, isLoading, getDailyWeather };
 };
