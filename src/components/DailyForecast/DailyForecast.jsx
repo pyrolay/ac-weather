@@ -63,7 +63,7 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
           {dailyWeatherData?.map((day) => (
             <div className="dailyForecast" key={day.date}>
               <p className="dailyForecastDay">{getDate(day)}</p>
-              <div>
+              <div className="dailyForecastWeather">
                 <img src="" alt="" />
                 <p>{day.predominantWeather}</p>
               </div>
