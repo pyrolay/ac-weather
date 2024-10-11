@@ -14,6 +14,7 @@
   width: 80%;
   height: 50%;
   flex-direction: column;
+  justify-content: start;
   background-image: url("../../assets/backgroundcolor.png");
   background-size: contain;
   background-position: center;
@@ -22,6 +23,10 @@
 
 .forecastContainer {
   align-items: start;
+}
+
+.cityContainer {
+  margin-top: 40px;
 }
 
 .city, .dailyForecastButton {
@@ -71,6 +76,12 @@
     margin-inline: 10px;
     align-self: center;
     background-color: #8a7b66;
+}
+
+/* Loading */
+
+.loadingComponent {
+  margin: 20px;
 }
 
 /* Text */

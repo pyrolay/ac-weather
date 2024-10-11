@@ -3,11 +3,11 @@ import { useCallback, useState } from "react";
 
 export const useTime = () => {
   const [timeData, setTimeData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [timeLoading, setTimeLoading] = useState(false);
 
   const getTimeData = useCallback(async (city) => {
     try {
-      setIsLoading(true);
+      setTimeLoading(true);
       const response = await axios.get(
         `https://timeapi.io/api/time/current/coordinate`,
         {
@@ -21,9 +21,9 @@ export const useTime = () => {
     } catch (error) {
       console.error("error fetching time data", error);
     } finally {
-      setIsLoading(false);
+      setTimeLoading(false);
     }
   }, []);
 
-  return { timeData, isLoading, getTimeData };
+  return { timeData, timeLoading, getTimeData };
 };

@@ -1,24 +1,21 @@
 import React, { useEffect } from "react";
 
 import "./DailyForecast.css";
+
 import { useClock } from "../../hooks/useClock";
 import { useDailyWeather } from "../../hooks/useDailyWeather";
 import { getDate } from "../../utils/getDate";
 
+import { ClipLoader } from "react-spinners";
+
 const DailyForecast = ({ weatherData, cityData, timeData }) => {
   const { formattedTime } = useClock(timeData);
-
-  const { dailyWeatherData, getDailyWeather } = useDailyWeather();
+  const { dailyWeatherData, dailyWeatherLoading, getDailyWeather } =
+    useDailyWeather();
 
   useEffect(() => {
-    if (cityData) {
-      getDailyWeather(cityData);
-    }
+    if (cityData) getDailyWeather(cityData);
   }, [getDailyWeather, cityData]);
-
-  useEffect(() => {
-    console.log(dailyWeatherData);
-  }, [dailyWeatherData]);
 
   return (
     <div className="dailyForecastContainer">
@@ -36,22 +33,19 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
           </div>
           <div className="todayForecastMain">
             <div className="todayWeather">
-              <img src="" alt="" />
               <p>{weatherData.weather.main}</p>
             </div>
             <div className="todayHumidity">
-              <img src="" alt="" />
-              <p>{weatherData.temp.humidity}</p>
+              <p>Humidity: {weatherData.temp.humidity}%</p>
             </div>
             <div className="todayWind">
-              <img src="" alt="" />
-              <p>{weatherData.wind} m/s</p>
+              <p>Wind: {weatherData.wind} m/s</p>
             </div>
           </div>
           <div className="todayFeelLikeMinMax">
-            <p>Feel like: {Math.round(weatherData.temp.feels_like)}°c</p>
+            <p>Feels like: {Math.round(weatherData.temp.feels_like)}°c</p>
             <p>
-              {Math.round(weatherData.temp.temp_min)}° to{" "}
+              {Math.round(weatherData.temp.temp_min)}° /{" "}
               {Math.round(weatherData.temp.temp_max)}°
             </p>
           </div>
@@ -60,18 +54,21 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
       <div className="dailyForecastResult">
         <p className="forecastTitle">5-day Forecast</p>
         <div className="dailyForecastResultContainer">
-          {dailyWeatherData?.map((day) => (
-            <div className="dailyForecast" key={day.date}>
-              <p className="dailyForecastDay">{getDate(day)}</p>
-              <div className="dailyForecastWeather">
-                <img src="" alt="" />
-                <p>{day.predominantWeather}</p>
+          {dailyWeatherLoading ? (
+            <ClipLoader size={50} />
+          ) : (
+            dailyWeatherData?.map((day) => (
+              <div className="dailyForecast" key={day.date}>
+                <p className="dailyForecastDay">{getDate(day)}</p>
+                <div className="dailyForecastWeather">
+                  <p>{day.predominantWeather}</p>
+                </div>
+                <p className="dailyForecastMinMax">
+                  {day.minTemp}° / {day.maxTemp}°
+                </p>
               </div>
-              <p className="dailyForecastMinMax">
-                {day.minTemp}° / {day.maxTemp}°
-              </p>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

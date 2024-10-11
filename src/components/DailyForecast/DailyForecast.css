@@ -58,6 +58,9 @@
 .dailyForecastResultContainer {
   max-height: 360px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 10px;
   box-sizing: border-box;
 }
@@ -97,4 +100,11 @@
 
 .dailyForecast div p {
   font-size: 0.9em;
+}
+
+.loadingComponent {
+  width: 100%;
+  display: flex;
+  justify-items: center;
+  align-self: center;
 }

@@ -5,11 +5,11 @@ const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 
 export const useWeather = () => {
   const [weatherData, setWeatherData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [weatherLoading, setWeatherLoading] = useState(false);
 
   const getWeatherData = useCallback(async (city) => {
     try {
-      setIsLoading(true);
+      setWeatherLoading(true);
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather`,
         {
@@ -30,9 +30,9 @@ export const useWeather = () => {
     } catch (error) {
       console.error("error fetching city data", error);
     } finally {
-      setIsLoading(false);
+      setWeatherLoading(false);
     }
   }, []);
 
-  return { weatherData, isLoading, getWeatherData };
+  return { weatherData, weatherLoading, getWeatherData };
 };

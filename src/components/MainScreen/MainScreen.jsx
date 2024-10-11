@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+
 import "./MainScreen.css";
+
 import { Modal } from "../Modal/Modal";
 
 import { useSearchCity } from "../../hooks/useSearchCity";
@@ -11,6 +13,9 @@ import { useClock } from "../../hooks/useClock";
 import { FaMapMarkerAlt, FaSyncAlt, FaCalendarAlt } from "react-icons/fa";
 import pointRightImage from "../../assets/point right.svg";
 
+import { ClockLoader } from "react-spinners";
+
+
 const MainScreen = () => {
   const [modal, setModal] = useState({ visible: false, isSearch: false });
   const [cityName, setCityName] = useState();
@@ -20,12 +25,12 @@ const MainScreen = () => {
     lon: -58.4370894,
   });
 
-  const { weatherData, getWeatherData } = useWeather();
-  const { citySearchData, getCitySearchData } = useSearchCity();
+  const { weatherData, weatherLoading, getWeatherData } = useWeather();
+  const { citySearchData, cityLoading, getCitySearchData } = useSearchCity();
   const { temp, feels_like } = weatherData?.temp || {};
   const weather = weatherData?.weather?.main;
 
-  const { timeData, getTimeData } = useTime();
+  const { timeData, timeLoading, getTimeData } = useTime();
 
   useEffect(() => {
     cityName && getCitySearchData(cityName);
@@ -39,9 +44,11 @@ const MainScreen = () => {
   const openSearchModal = () => setModal({ visible: true, isSearch: true });
   const openForecastModal = () => setModal({ visible: true, isSearch: false });
   const handleSyncButton = () => {
-    getWeatherData(cityData)
-    getTimeData(cityData)
-  }
+    getWeatherData(cityData);
+    getTimeData(cityData);
+  };
+
+  const isLoading = weatherLoading || cityLoading || timeLoading;
 
   return (
     <div className="mainContainer">
@@ -53,12 +60,16 @@ const MainScreen = () => {
             onForecastClick={openForecastModal}
             onSyncClick={handleSyncButton}
           />
-          <WeatherInfo
-            temp={temp}
-            feelsLike={feels_like}
-            weather={weather}
-            timeData={timeData}
-          />
+          {isLoading ? (
+            <ClockLoader size={75} color="#e886c3" className="loadingComponent flex" />
+          ) : (
+            <WeatherInfo
+              temp={temp}
+              feelsLike={feels_like}
+              weather={weather}
+              timeData={timeData}
+            />
+          )}
         </div>
         <VideoEmbed />
       </div>
