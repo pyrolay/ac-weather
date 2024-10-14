@@ -116,31 +116,6 @@ const MainScreen = () => {
   );
 };
 
-const CityInfo = ({
-  city,
-  onSearchClick,
-  onSyncClick,
-  onForecastClick,
-  weatherError,
-  weatherData,
-}) => (
-  <div className="cityContainer flex">
-    <div className="city flex">
-      <FaMapMarkerAlt className="cityIcon map" />
-      <span onClick={onSearchClick}>{city}</span>
-      <FaSyncAlt className="cityIcon sync" onClick={onSyncClick} />
-    </div>
-    <div className="dailyForecastButton flex" onClick={onForecastClick}>
-      <img
-        src={pointRightImage}
-        alt="point right icon"
-        className="pointRightImage"
-      />
-      <button className="forecastButton">Full Forecast</button>
-    </div>
-  </div>
-);
-
 const WeatherInfo = ({ temp, feelsLike, weather, timeData }) => (
   <div className="forecastContainer flex">
     <div className="currentWeather">
