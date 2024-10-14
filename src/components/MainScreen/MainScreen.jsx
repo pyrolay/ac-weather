@@ -14,7 +14,7 @@ import { FaMapMarkerAlt, FaSyncAlt, FaCalendarAlt } from "react-icons/fa";
 import pointRightImage from "../../assets/point right.svg";
 
 import { ClockLoader } from "react-spinners";
-
+import { Error } from "../Error/Error";
 
 const MainScreen = () => {
   const [modal, setModal] = useState({ visible: false, isSearch: false });
@@ -25,7 +25,8 @@ const MainScreen = () => {
     lon: -58.4370894,
   });
 
-  const { weatherData, weatherLoading, getWeatherData } = useWeather();
+  const { weatherData, weatherLoading, getWeatherData, weatherError } =
+    useWeather();
   const { citySearchData, cityLoading, getCitySearchData } = useSearchCity();
   const { temp, feels_like } = weatherData?.temp || {};
   const weather = weatherData?.weather?.main;
@@ -41,6 +42,10 @@ const MainScreen = () => {
     getTimeData(cityData);
   }, [cityData, getWeatherData, getTimeData]);
 
+  useEffect(() => {
+    console.log(weatherError && weatherError);
+  }, [weatherError]);
+
   const openSearchModal = () => setModal({ visible: true, isSearch: true });
   const openForecastModal = () => setModal({ visible: true, isSearch: false });
   const handleSyncButton = () => {
@@ -54,15 +59,37 @@ const MainScreen = () => {
     <div className="mainContainer">
       <div className="mainContent flex">
         <div className="backgroundImage flex">
-          <CityInfo
-            city={cityData.name}
-            onSearchClick={openSearchModal}
-            onForecastClick={openForecastModal}
-            onSyncClick={handleSyncButton}
-          />
+          <div className="cityContainer flex">
+            <div className="city flex">
+              <FaMapMarkerAlt className="cityIcon map" />
+              <span onClick={openSearchModal}>{cityData.name}</span>
+              <FaSyncAlt className="cityIcon sync" onClick={handleSyncButton} />
+            </div>
+
+            {!isLoading && !weatherError && (
+              <div
+                className="dailyForecastButton flex"
+                onClick={openForecastModal}
+              >
+                <img
+                  src={pointRightImage}
+                  alt="point right icon"
+                  className="pointRightImage"
+                />
+                <button className="forecastButton">Full Forecast</button>
+              </div>
+            )}
+          </div>
           {isLoading ? (
-            <ClockLoader size={75} color="#e886c3" className="loadingComponent flex" />
+            <ClockLoader
+              size={75}
+              color="#e886c3"
+              className="loadingComponent flex"
+            />
           ) : (
+            weatherError && <Error weatherError={weatherError} />
+          )}
+          {!isLoading && weatherData && (
             <WeatherInfo
               temp={temp}
               feelsLike={feels_like}
@@ -89,22 +116,27 @@ const MainScreen = () => {
   );
 };
 
-const CityInfo = ({ city, onSearchClick, onSyncClick, onForecastClick }) => (
+const CityInfo = ({
+  city,
+  onSearchClick,
+  onSyncClick,
+  onForecastClick,
+  weatherError,
+  weatherData,
+}) => (
   <div className="cityContainer flex">
     <div className="city flex">
       <FaMapMarkerAlt className="cityIcon map" />
       <span onClick={onSearchClick}>{city}</span>
       <FaSyncAlt className="cityIcon sync" onClick={onSyncClick} />
     </div>
-    <div className="dailyForecastButton flex">
+    <div className="dailyForecastButton flex" onClick={onForecastClick}>
       <img
         src={pointRightImage}
         alt="point right icon"
         className="pointRightImage"
       />
-      <button className="forecastButton" onClick={onForecastClick}>
-        Full Forecast
-      </button>
+      <button className="forecastButton">Full Forecast</button>
     </div>
   </div>
 );
