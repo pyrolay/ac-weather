@@ -87,7 +87,7 @@ const MainScreen = () => {
               className="loadingComponent flex"
             />
           ) : (
-            weatherError && <Error weatherError={weatherError} />
+            weatherError && <Error error={weatherError} />
           )}
           {!isLoading && weatherData && (
             <WeatherInfo

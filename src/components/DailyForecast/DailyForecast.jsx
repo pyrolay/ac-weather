@@ -7,11 +7,16 @@ import { useDailyWeather } from "../../hooks/useDailyWeather";
 import { getDate } from "../../utils/getDate";
 
 import { ClipLoader } from "react-spinners";
+import { Error } from "../Error/Error";
 
 const DailyForecast = ({ weatherData, cityData, timeData }) => {
   const { formattedTime } = useClock(timeData);
-  const { dailyWeatherData, dailyWeatherLoading, getDailyWeather } =
-    useDailyWeather();
+  const {
+    dailyWeatherData,
+    dailyWeatherLoading,
+    getDailyWeather,
+    errorDailyWeather,
+  } = useDailyWeather();
 
   useEffect(() => {
     if (cityData) getDailyWeather(cityData);
@@ -57,7 +62,11 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
           {dailyWeatherLoading ? (
             <ClipLoader size={50} />
           ) : (
-            dailyWeatherData?.map((day) => (
+            errorDailyWeather && <Error error={errorDailyWeather} />
+          )}
+          {!dailyWeatherLoading &&
+            dailyWeatherData &&
+            dailyWeatherData.map((day) => (
               <div className="dailyForecast" key={day.date}>
                 <p className="dailyForecastDay">{getDate(day)}</p>
                 <div className="dailyForecastWeather">
@@ -67,8 +76,7 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
                   {day.minTemp}° / {day.maxTemp}°
                 </p>
               </div>
-            ))
-          )}
+            ))}
         </div>
       </div>
     </div>

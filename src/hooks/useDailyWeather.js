@@ -6,6 +6,7 @@ const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 export const useDailyWeather = () => {
   const [dailyWeatherData, setDailyWeatherData] = useState(null);
   const [dailyWeatherLoading, setDailyWeatherLoading] = useState(false);
+  const [errorDailyWeather, setErrorDailyWeather] = useState(null);
 
   // Group weather data by day
   const groupByDay = useCallback((list) => 
@@ -38,6 +39,7 @@ export const useDailyWeather = () => {
   // Fetch daily weather
   const getDailyWeather = useCallback(async (city) => {
     setDailyWeatherLoading(true);
+    setErrorDailyWeather(null);
     try {
       const { data } = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast`,
@@ -62,11 +64,12 @@ export const useDailyWeather = () => {
 
       setDailyWeatherData(fiveDayForecast);
     } catch (error) {
-      console.error("Error fetching city data", error);
+      setErrorDailyWeather("An error occurred");
+      setDailyWeatherData(null);
     } finally {
       setDailyWeatherLoading(false);
     }
   }, [groupByDay, calculateDailyWeather]);
 
-  return { dailyWeatherData, dailyWeatherLoading, getDailyWeather };
+  return { dailyWeatherData, dailyWeatherLoading, getDailyWeather, errorDailyWeather };
 };

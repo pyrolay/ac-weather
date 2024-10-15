@@ -1,8 +1,8 @@
 import React from "react";
 
-const Error = ({ weatherError }) => {
+const Error = ({ error }) => {
     return (
-        <div>{weatherError}</div>
+        <div>{error}</div>
     )
 }
 
