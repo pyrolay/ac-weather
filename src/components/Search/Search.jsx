@@ -1,7 +1,8 @@
 import React from "react";
 import "./Search.css";
+import { Error } from "../Error/Error";
 
-const Search = ({ setCityName, citySearchData, setCityData, setModal }) => {
+const Search = ({ setCityName, citySearchData, setCityData, setModal, errorCity }) => {
   const handleCity = (e) => setCityName(e.target.value);
 
   const selectCity = (city) => {
@@ -12,7 +13,8 @@ const Search = ({ setCityName, citySearchData, setCityData, setModal }) => {
   return (
     <div className="searchContainer">
       <SearchBar onChange={handleCity} />
-      {citySearchData?.length ? (
+      {errorCity && <Error error={errorCity}/>}
+      {!errorCity && citySearchData?.length ? (
         <ResultsList citySearchData={citySearchData} onSelect={selectCity} />
       ) : null}
     </div>

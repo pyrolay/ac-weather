@@ -27,7 +27,7 @@ const MainScreen = () => {
 
   const { weatherData, weatherLoading, getWeatherData, weatherError } =
     useWeather();
-  const { citySearchData, cityLoading, getCitySearchData } = useSearchCity();
+  const { citySearchData, cityLoading, getCitySearchData, errorCity } = useSearchCity();
   const { temp, feels_like } = weatherData?.temp || {};
   const weather = weatherData?.weather?.main;
 
@@ -110,6 +110,7 @@ const MainScreen = () => {
           weatherData={weatherData}
           cityData={cityData}
           timeData={timeData}
+          errorCity={errorCity}
         />
       )}
     </div>

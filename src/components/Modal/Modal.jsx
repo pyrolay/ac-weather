@@ -15,7 +15,8 @@ const Modal = ({
   setCityData,
   weatherData,
   cityData,
-  timeData
+  timeData,
+  errorCity
 }) => {
   return (
     <div className="mainContainer">
@@ -32,6 +33,7 @@ const Modal = ({
             citySearchData={citySearchData}
             setCityData={setCityData}
             setModal={setModal}
+            errorCity={errorCity}
           />
         ) : (
           <DailyForecast

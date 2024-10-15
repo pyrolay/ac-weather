@@ -6,11 +6,13 @@ const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 export const useSearchCity = () => {
   const [citySearchData, setCitySearchData] = useState(null);
   const [cityLoading, setCityLoading] = useState(false);
+  const [errorCity, setErrorCity] = useState(null);
 
   const getCitySearchData = useCallback(async (city) => {
     if (!city) return;
     try {
       setCityLoading(true);
+      setErrorCity(null);
       const response = await axios.get(
         `https://api.openweathermap.org/geo/1.0/direct`,
         {
@@ -23,11 +25,12 @@ export const useSearchCity = () => {
       );
       setCitySearchData(response.data);
     } catch (error) {
-      console.error("Error fetching city data", error);
+      setErrorCity("There is an error! Please try later")
+      setCitySearchData(null)
     } finally {
       setCityLoading(false);
     }
   }, []);
 
-  return { citySearchData, cityLoading, getCitySearchData };
+  return { citySearchData, cityLoading, getCitySearchData, errorCity };
 };

@@ -29,10 +29,6 @@
   margin-top: 40px;
 }
 
-.city, .dailyForecastButton {
-  width: 100%;
-}
-
 .city {
   justify-content: flex-end;
   padding-right: 10px;
