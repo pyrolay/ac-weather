@@ -2,12 +2,16 @@ import React, { useEffect } from "react";
 
 import "./DailyForecast.css";
 
+import { Error } from "../Error/Error";
+
 import { useClock } from "../../hooks/useClock";
 import { useDailyWeather } from "../../hooks/useDailyWeather";
 import { getDate } from "../../utils/getDate";
 
 import { ClipLoader } from "react-spinners";
-import { Error } from "../Error/Error";
+
+import { IoIosWater } from "react-icons/io";
+import { FaWind } from "react-icons/fa";
 
 const DailyForecast = ({ weatherData, cityData, timeData }) => {
   const { formattedTime } = useClock(timeData);
@@ -39,12 +43,15 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
           <div className="todayForecastMain">
             <div className="todayWeather">
               <p>{weatherData.weather.main}</p>
+              <img className="weatherImageIcon" src={`https://openweathermap.org/img/wn/${weatherData.weather.icon}@2x.png`} alt="" />
             </div>
             <div className="todayHumidity">
-              <p>Humidity: {weatherData.temp.humidity}%</p>
+              <IoIosWater  className="humidityIcon" />
+              <p>{weatherData.temp.humidity}%</p>
             </div>
             <div className="todayWind">
-              <p>Wind: {weatherData.wind} m/s</p>
+              <FaWind className="windIcon" />
+              <p>{weatherData.wind} m/s</p>
             </div>
           </div>
           <div className="todayFeelLikeMinMax">
@@ -71,6 +78,9 @@ const DailyForecast = ({ weatherData, cityData, timeData }) => {
                 <p className="dailyForecastDay">{getDate(day)}</p>
                 <div className="dailyForecastWeather">
                   <p>{day.predominantWeather}</p>
+                </div>
+                <div className="dailyForecastWeather">
+                  <img className="weatherImageIcon" src={`https://openweathermap.org/img/wn/${day.dayWeatherIcon}@2x.png`} alt="" />
                 </div>
                 <p className="dailyForecastMinMax">
                   {day.minTemp}° / {day.maxTemp}°

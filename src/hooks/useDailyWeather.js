@@ -27,12 +27,22 @@ export const useDailyWeather = () => {
       const minTemp = Math.min(...temps);
 
       const weatherCount = dayData.reduce((acc, item) => {
-        acc[item.weather[0].main] = (acc[item.weather[0].main] || 0) + 1;
+        const weatherMain = item.weather[0].main;
+        let weatherIcon = item.weather[0].icon;
+  
+        weatherIcon = weatherIcon.replace(/n$/, 'd');
+  
+        acc[weatherMain] = acc[weatherMain] || { count: 0, icon: weatherIcon };
+        acc[weatherMain].count += 1;
         return acc;
       }, {});
-      const predominantWeather = Object.keys(weatherCount).reduce((a, b) => weatherCount[a] > weatherCount[b] ? a : b);
+      const predominantWeather = Object.keys(weatherCount).reduce((a, b) => 
+        weatherCount[a].count > weatherCount[b].count ? a : b
+      );
 
-      return { date, dt: dayData[0].dt, maxTemp, minTemp, predominantWeather };
+      const dayWeatherIcon = weatherCount[predominantWeather].icon;
+
+      return { date, dt: dayData[0].dt, maxTemp, minTemp, predominantWeather, dayWeatherIcon };
     })
   , []);
 

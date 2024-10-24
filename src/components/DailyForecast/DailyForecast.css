@@ -25,6 +25,13 @@
 .todayHumidity,
 .todayWind {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.humidityIcon, .windIcon {
+  font-size: 1.2em;
+  margin-right: 5px;
 }
 
 .forecastTitle {
@@ -72,12 +79,12 @@
 .dailyForecast {
   background-color: #ffdd46;
   width: 100%;
-  height: 50px;
+  height: 65px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin-bottom: 20px;
   padding: 5px 10px;
+  align-items: center;
   font-size: 0.8em;
   border-radius: 20px;
   box-sizing: border-box;
@@ -86,6 +93,7 @@
 .dailyForecastWeather {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .dailyForecastWeather img {

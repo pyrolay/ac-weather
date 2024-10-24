@@ -30,6 +30,7 @@ const MainScreen = () => {
   const { citySearchData, cityLoading, getCitySearchData, errorCity } = useSearchCity();
   const { temp, feels_like } = weatherData?.temp || {};
   const weather = weatherData?.weather?.main;
+  const weatherIcon = weatherData?.weather?.icon;
 
   const { timeData, timeLoading, getTimeData } = useTime();
 
@@ -41,10 +42,6 @@ const MainScreen = () => {
     getWeatherData(cityData);
     getTimeData(cityData);
   }, [cityData, getWeatherData, getTimeData]);
-
-  useEffect(() => {
-    console.log(weatherError && weatherError);
-  }, [weatherError]);
 
   const openSearchModal = () => setModal({ visible: true, isSearch: true });
   const openForecastModal = () => setModal({ visible: true, isSearch: false });
@@ -94,6 +91,7 @@ const MainScreen = () => {
               temp={temp}
               feelsLike={feels_like}
               weather={weather}
+              weatherIcon={weatherIcon}
               timeData={timeData}
             />
           )}
@@ -117,13 +115,14 @@ const MainScreen = () => {
   );
 };
 
-const WeatherInfo = ({ temp, feelsLike, weather, timeData }) => (
+const WeatherInfo = ({ temp, feelsLike, weather, weatherIcon, timeData }) => (
   <div className="forecastContainer flex">
     <div className="currentWeather">
       <p className="temperature">{Math.round(temp)}°c</p>
       <p className="feelsLike">Feels like: {Math.round(feelsLike)}°c</p>
       <p className="weather">
         <span>{weather}</span>
+        <img className="weatherImageIcon" src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`} alt="" />
       </p>
     </div>
     <div className="border"></div>
