@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./MainScreen.css";
 
 import { Modal } from "../Modal/Modal";
+import { YoutubeEmbed } from "../YoutubeEmbed/YoutubeEmbed";
 
 import { useSearchCity } from "../../hooks/useSearchCity";
 import { useWeather } from "../../hooks/useWeather";
@@ -147,16 +148,7 @@ const CurrentTime = ({ timeData }) => {
 
 const VideoEmbed = () => (
   <div className="videoContainer flex">
-    <iframe
-      width="560"
-      height="315"
-      src="https://www.youtube.com/embed/UYdLLgKCm3Q?si=dPkhfKBm3mfYM9UE"
-      title="YouTube video player"
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerPolicy="strict-origin-when-cross-origin"
-      allowFullScreen
-    ></iframe>
+    <YoutubeEmbed embedId={"qDnrdeNDRio"} />
   </div>
 );
 
