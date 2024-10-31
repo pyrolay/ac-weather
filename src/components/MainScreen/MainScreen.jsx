@@ -18,6 +18,7 @@ import { ClockLoader } from "react-spinners";
 import { Error } from "../Error/Error";
 
 const MainScreen = () => {
+  /* make function to save city on local storage */
   const [modal, setModal] = useState({ visible: false, isSearch: false });
   const [cityName, setCityName] = useState();
   const [cityData, setCityData] = useState({
@@ -28,12 +29,14 @@ const MainScreen = () => {
 
   const { weatherData, weatherLoading, getWeatherData, weatherError } =
     useWeather();
-  const { citySearchData, cityLoading, getCitySearchData, errorCity } = useSearchCity();
+  const { citySearchData, cityLoading, getCitySearchData, errorCity } =
+    useSearchCity();
   const { temp, feels_like } = weatherData?.temp || {};
   const weather = weatherData?.weather?.main;
   const weatherIcon = weatherData?.weather?.icon;
 
   const { timeData, timeLoading, getTimeData } = useTime();
+  const { formattedTime } = useClock(timeData)
 
   useEffect(() => {
     cityName && getCitySearchData(cityName);
@@ -97,7 +100,7 @@ const MainScreen = () => {
             />
           )}
         </div>
-        <VideoEmbed />
+        <VideoEmbed formattedTime={formattedTime} weatherData={weatherData} />
       </div>
       {modal.visible && (
         <Modal
@@ -123,7 +126,11 @@ const WeatherInfo = ({ temp, feelsLike, weather, weatherIcon, timeData }) => (
       <p className="feelsLike">Feels like: {Math.round(feelsLike)}°c</p>
       <p className="weather">
         <span>{weather}</span>
-        <img className="weatherImageIcon" src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`} alt="" />
+        <img
+          className="weatherImageIcon"
+          src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
+          alt=""
+        />
       </p>
     </div>
     <div className="border"></div>
@@ -146,9 +153,12 @@ const CurrentTime = ({ timeData }) => {
   );
 };
 
-const VideoEmbed = () => (
+const VideoEmbed = ({ formattedTime, weatherData }) => (
   <div className="videoContainer flex">
-    <YoutubeEmbed embedId={"qDnrdeNDRio"} />
+    <YoutubeEmbed
+      formattedTime={formattedTime}
+      weatherData={weatherData}
+    />
   </div>
 );
 
