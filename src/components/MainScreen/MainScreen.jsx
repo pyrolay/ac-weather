@@ -18,13 +18,18 @@ import { ClockLoader } from "react-spinners";
 import { Error } from "../Error/Error";
 
 const MainScreen = () => {
-  /* make function to save city on local storage */
   const [modal, setModal] = useState({ visible: false, isSearch: false });
   const [cityName, setCityName] = useState();
-  const [cityData, setCityData] = useState({
-    name: "Buenos Aires",
-    lat: -34.6075682,
-    lon: -58.4370894,
+  const [cityData, setCityData] = useState(() => {
+    const storedCityData = localStorage.getItem("cityData");
+    if (storedCityData) {
+      return JSON.parse(storedCityData);
+    }
+    return {
+      name: "Buenos Aires",
+      lat: -34.6075682,
+      lon: -58.4370894,
+    };
   });
 
   const { weatherData, weatherLoading, getWeatherData, weatherError } =
@@ -37,6 +42,15 @@ const MainScreen = () => {
 
   const { timeData, timeLoading, getTimeData } = useTime();
   const { formattedTime } = useClock(timeData)
+
+  const storeCityData = (data) => {
+    try {
+      localStorage.setItem("cityData", JSON.stringify(data));
+      console.log("City data saved to local storage.");
+    } catch (error) {
+      console.error("Failed to save city data to local storage:", error);
+    }
+  };
 
   useEffect(() => {
     cityName && getCitySearchData(cityName);
@@ -52,6 +66,10 @@ const MainScreen = () => {
   const handleSyncButton = () => {
     getWeatherData(cityData);
     getTimeData(cityData);
+  };
+  const handleCityDataUpdate = (selectedCityData) => {
+    setCityData(selectedCityData);
+    storeCityData(selectedCityData);
   };
 
   const isLoading = weatherLoading || cityLoading || timeLoading;
@@ -108,7 +126,7 @@ const MainScreen = () => {
           isSearch={modal.isSearch}
           setCityName={setCityName}
           citySearchData={citySearchData}
-          setCityData={setCityData}
+          setCityData={handleCityDataUpdate}
           weatherData={weatherData}
           cityData={cityData}
           timeData={timeData}
