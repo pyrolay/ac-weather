@@ -1,12 +1,12 @@
 import videoIds from "../mock/vidIds.json";
-/* change ids of rainy and snowy */
 
-const defaultVideo = "qDnrdeNDRio";
+const defaultVideo = "TESqvot52Z8";
 
 const getWeatherName = (id) => {
-  /* change if 804 and 803 = rainy */
   if (id >= 200 && id < 600) {
     return "rainy";
+  } else if (id === 803 || id === 804) {
+    return "rainy"
   } else if (id >= 600 && id < 800) {
     return "snowy";
   } else {
@@ -16,9 +16,9 @@ const getWeatherName = (id) => {
 
 export const getVideo = (time, weatherId) => {
   const hour = time?.substring(0, 2);
-  const weather = getWeatherName(weatherId)
+  const weather = getWeatherName(weatherId);
 
-  const videoId = videoIds[hour]?.[weather]
-  
-  return videoId || defaultVideo
+  const videoId = videoIds[hour]?.[weather];
+
+  return videoId || defaultVideo;
 };

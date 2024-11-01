@@ -1,37 +1,62 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getVideo } from "../../utils/getVideo";
 
 const YoutubeEmbed = ({ formattedTime, weatherData }) => {
-  const [videoId, setVideoId] = useState("");
+  const [videoId, setVideoId] = useState("TESqvot52Z8");
   const [savedHour, setSavedHour] = useState(null);
+  const playerRef = useRef(null);
 
   useEffect(() => {
-    const currentHour = formattedTime.substring(0, 2);
+    const initializePlayer = () => {
+      playerRef.current = new window.YT.Player("youtube-player", {
+        videoId,
+        playerVars: {
+          autoplay: 1,
+          mute: 0,
+          loop: 1,
+          playlist: videoId,
+        },
+        events: {
+          onReady: (event) => {
+            event.target.playVideo();
+          },
+        },
+      });
+    };
 
-    // Check if the current hour is different from the saved hour
+    // Check if YT API is loaded, if not, add the script
+    if (!window.YT) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.body.appendChild(tag);
+      window.onYouTubeIframeAPIReady = initializePlayer;
+    } else {
+      initializePlayer();
+    }
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.destroy();
+      }
+    };
+  }, [videoId]);
+
+  // Update video ID when time or weather changes
+  useEffect(() => {
+    const currentHour = formattedTime?.substring(0, 2);
     if (currentHour !== savedHour) {
       const weather = weatherData?.weather?.id;
       const newVideoId = getVideo(formattedTime, weather);
-      
       setVideoId(newVideoId);
       setSavedHour(currentHour);
+
+      if (playerRef.current && playerRef.current.loadVideoById) {
+        playerRef.current.loadVideoById(newVideoId);
+      }
     }
   }, [formattedTime, weatherData, savedHour]);
 
-  return (
-    <div>
-      <iframe
-        width="100%"
-        height="100%"
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}`}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-      ></iframe>
-    </div>
-  );
+  return <div id="youtube-player" style={{ width: "100%", height: "100%" }}></div>;
 };
 
 export { YoutubeEmbed };
