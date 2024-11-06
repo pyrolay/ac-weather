@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { getVideo } from "../../utils/getVideo";
 
+import "../MainScreen/MainScreen.css"
+
 const YoutubeEmbed = ({ formattedTime, weatherData }) => {
   const [videoId, setVideoId] = useState("TESqvot52Z8");
   const [savedHour, setSavedHour] = useState(null);
@@ -56,7 +58,7 @@ const YoutubeEmbed = ({ formattedTime, weatherData }) => {
     }
   }, [formattedTime, weatherData, savedHour]);
 
-  return <div id="youtube-player" style={{ width: "100%", height: "100%" }}></div>;
+  return <div id="youtube-player" style={{ height: "100%" }}></div>;
 };
 
 export { YoutubeEmbed };

@@ -11,10 +11,9 @@
 }
 
 .backgroundImage {
-  width: 80%;
-  height: 50%;
+  width: 100vh;
+  height: 50vh;
   flex-direction: column;
-  justify-content: start;
   background-image: url("../../assets/backgroundcolor.png");
   background-size: contain;
   background-position: center;
@@ -62,7 +61,6 @@
 
 .videoContainer {
   height: 45%;
-  background-color: pink;
   margin-top: 20px;
 }
 
@@ -72,6 +70,10 @@
     margin-inline: 10px;
     align-self: center;
     background-color: #8a7b66;
+}
+
+#youtube-player {
+  width: 30vw;
 }
 
 /* Loading */
@@ -177,3 +179,60 @@
   margin: 0;
   padding: 0;
 }
+
+
+/* Media Queries */
+
+@media (max-width: 1199.98px) {
+  #youtube-player {
+    width: 40vw;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #youtube-player {
+    width: 50vw;
+  }
+}
+
+@media (max-width: 767.98px) {
+  #youtube-player {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .mainContent {
+    width: 100vw;
+  }
+
+  .backgroundImage {
+    width: 100%;
+    height: unset;
+    background-image: none;
+    background-color: #fffbe7;
+    border-radius: 30%;
+  }
+
+  .cityContainer {
+    margin-inline: 20px;
+  }
+
+  .city span {
+    width: 100px;
+  }
+
+  .forecastContainer {
+    margin-bottom: 20px;
+  }
+
+  .weatherImageIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  #youtube-player {
+    width: 80vw;
+  }
+}
+
