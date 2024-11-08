@@ -57,13 +57,17 @@
   font-size: 0.9em;
 }
 
+.dailyForecastResult {
+  height: 30vh;
+}
+
 .dailyForecastResult .forecastTitle {
   font-size: 1em;
   margin: 20px;
 }
 
 .dailyForecastResultContainer {
-  max-height: 360px;
+  height: 85%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -115,4 +119,11 @@
   display: flex;
   justify-items: center;
   align-self: center;
+}
+
+
+/* Media Queries */
+
+@media (max-width: 1199.98px) {
+
 }

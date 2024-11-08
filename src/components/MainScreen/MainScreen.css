@@ -11,7 +11,7 @@
 }
 
 .backgroundImage {
-  width: 100vh;
+  width: 100vw;
   height: 50vh;
   flex-direction: column;
   background-image: url("../../assets/backgroundcolor.png");

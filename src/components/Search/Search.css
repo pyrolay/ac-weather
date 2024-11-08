@@ -2,7 +2,7 @@
   padding: 10px 20px;
   padding-top: 0;
   height: 550px;
-  max-width: 550px;
+  max-width: 500px;
   box-sizing: border-box;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .resultsContainer {
-  max-height: 360px;
+  max-height: 65%;
   overflow-y: auto;
   margin-top: 10px;
   box-sizing: border-box;
@@ -72,4 +72,19 @@
 .resultCityCoordinates {
   font-size: 0.7em;
   color: #e13124;
+}
+
+
+/* Media Queries */
+
+@media (max-width: 767.98px) {
+  .searchContainer {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .searchContainer {
+    max-width: 300px;
+  }
 }
