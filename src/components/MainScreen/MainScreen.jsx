@@ -41,7 +41,7 @@ const MainScreen = () => {
   const weatherIcon = weatherData?.weather?.icon;
 
   const { timeData, timeLoading, getTimeData } = useTime();
-  const { formattedTime } = useClock(timeData)
+  const { formattedTime } = useClock(timeData);
 
   const storeCityData = (data) => {
     try {
@@ -119,6 +119,11 @@ const MainScreen = () => {
           )}
         </div>
         <VideoEmbed formattedTime={formattedTime} weatherData={weatherData} />
+        <div className="socialLinks">
+          <p>
+            Made by <a href="https://github.com/pyrolay" target="_blank" rel="noreferrer">Lay</a>
+          </p>
+        </div>
       </div>
       {modal.visible && (
         <Modal
@@ -173,10 +178,7 @@ const CurrentTime = ({ timeData }) => {
 
 const VideoEmbed = ({ formattedTime, weatherData }) => (
   <div className="videoContainer flex">
-    <YoutubeEmbed
-      formattedTime={formattedTime}
-      weatherData={weatherData}
-    />
+    <YoutubeEmbed formattedTime={formattedTime} weatherData={weatherData} />
   </div>
 );
 

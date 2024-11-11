@@ -145,6 +145,19 @@
   align-self: flex-end;
 }
 
+.socialLinks {
+  margin-top: 10px;
+}
+
+.socialLinks p {
+  color: white;
+  font-size: 0.9em;
+}
+
+.socialLinks a {
+  color: #e45aaf;
+}
+
 /* Icons */
 
 .cityIcon {
