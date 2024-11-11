@@ -1,0 +1,69 @@
+.mainContainer {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgb(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer {
+  width: 35vw;
+  max-height: 90vh;
+  padding-bottom: 12px;
+  background-color: #ffeea0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.closeModal {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: end;
+}
+
+.closeIcon {
+  font-size: 3em;
+  color: #44211d;
+  margin-right: 20px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+
+/* Media Queries */
+
+@media (max-width: 1399.98px) {
+  .modalContainer {
+    width: 45vw;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .modalContainer {
+    width: 60vw;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .modalContainer {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .modalContainer {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .modalContainer {
+    width: 90vw;
+  }
+}

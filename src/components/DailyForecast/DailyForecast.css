@@ -1,0 +1,129 @@
+.dailyForecastContainer {
+  width: 100%;
+  padding: 20px;
+  padding-top: 0px;
+  box-sizing: border-box;
+}
+
+.todayForecast {
+  background-color: #ffdd46;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 0.8em;
+}
+
+.todayForecastCurrent,
+.todayForecastMain,
+.todayFeelLikeMinMax {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.todayWeather,
+.todayHumidity,
+.todayWind {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.humidityIcon, .windIcon {
+  font-size: 1.2em;
+  margin-right: 5px;
+}
+
+.forecastTitle {
+  text-align: start;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.todayForecastCurrent .todayForecastTemp {
+  font-size: 2.5em;
+}
+
+.todayForecastCity p {
+  text-align: end;
+}
+
+.todayForecastCity .todayForecastCityName {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.todayFeelLikeMinMax {
+  font-size: 0.9em;
+}
+
+.dailyForecastResult {
+  height: 30vh;
+}
+
+.dailyForecastResult .forecastTitle {
+  font-size: 1em;
+  margin: 20px;
+}
+
+.dailyForecastResultContainer {
+  height: 85%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+.dailyForecastResultContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.dailyForecast {
+  background-color: #ffdd46;
+  width: 100%;
+  height: 65px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-bottom: 20px;
+  padding: 5px 10px;
+  align-items: center;
+  font-size: 0.8em;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.dailyForecastWeather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dailyForecastWeather img {
+  margin-right: 5px;
+}
+
+.dailyForecastDay,
+.dailyForecastMinMax {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.dailyForecast div p {
+  font-size: 0.9em;
+}
+
+.loadingComponent {
+  width: 100%;
+  display: flex;
+  justify-items: center;
+  align-self: center;
+}
+
+
+/* Media Queries */
+
+@media (max-width: 1199.98px) {
+
+}

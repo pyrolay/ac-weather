@@ -1,0 +1,90 @@
+.searchContainer {
+  padding: 10px 20px;
+  padding-top: 0;
+  height: 550px;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.searchBar {
+  width: 100%;
+  font-size: 1em;
+  text-align: start;
+  padding: 5px 16px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  cursor: text;
+  background-color: #ffdd46;
+  color: #44211d;
+  border: 2px solid #44211d;
+  border-radius: 10px;
+}
+
+.searchBar::placeholder {
+  color: #886e6c;
+}
+
+.searchBarContainer p {
+  font-size: 0.7em;
+}
+
+.resultsContainer {
+  max-height: 65%;
+  overflow-y: auto;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+.resultsContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.resultCityItem {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 10px;
+  border-bottom: 2px solid #725d42;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.resultCityItem:hover {
+  background-color: #ffcc00;
+}
+
+.resultCityItem p {
+  text-align: start;
+  cursor: pointer;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resultCityItem .resultCityName {
+  font-size: 0.9em;
+}
+
+.resultCityCoordinates {
+  font-size: 0.7em;
+  color: #e13124;
+}
+
+
+/* Media Queries */
+
+@media (max-width: 767.98px) {
+  .searchContainer {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .searchContainer {
+    max-width: 300px;
+  }
+}
