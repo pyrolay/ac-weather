@@ -21,6 +21,9 @@ export const useWeather = () => {
             appid: apiKey,
             units: "metric",
           },
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       setWeatherData({

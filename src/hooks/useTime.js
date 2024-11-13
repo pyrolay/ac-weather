@@ -15,6 +15,9 @@ export const useTime = () => {
             latitude: city.lat,
             longitude: city.lon,
           },
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       setTimeData(response.data);
