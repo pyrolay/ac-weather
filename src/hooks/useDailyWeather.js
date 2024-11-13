@@ -60,6 +60,9 @@ export const useDailyWeather = () => {
             units: "metric",
             appid: apiKey,
           },
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 

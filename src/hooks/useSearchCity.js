@@ -21,6 +21,9 @@ export const useSearchCity = () => {
             appid: apiKey,
             limit: 5,
           },
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       setCitySearchData(response.data);
