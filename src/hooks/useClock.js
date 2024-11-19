@@ -18,9 +18,9 @@ export const useClock = (timeData) => {
         year,
         month - 1,
         day,
-        hour, // Use the hour from the API
-        realTime.getMinutes(), // Use current system minutes
-        realTime.getSeconds() // Use current system seconds
+        hour,
+        realTime.getMinutes(),
+        realTime.getSeconds()
       );
       setCurrentTime(syncedTime);
     };
@@ -37,6 +37,7 @@ export const useClock = (timeData) => {
   const formattedTime = currentTime?.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
   });
 
   return { formattedTime };
